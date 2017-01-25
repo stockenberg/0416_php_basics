@@ -41,18 +41,8 @@
     <title><?= $whitelist[$_GET["p"]] ?></title>
 </head>
 <body>
-    DEINE AKTION WAR: Seite: <?= $_GET["p"] ?> Ressource: <?= $_GET["article_id"] ?> Action: <?= $_GET["action"] ?>
-    <header>
-        <h1><?= $_GET["c"] ?></h1>
-        <p>Mein Artikel mit der ID: <?= $_GET["article_id"]; ?></p>
-        <a href="index.php?p=about&article_id=<?= $_GET["article_id"]; ?>&action=delete">LÖSCHEN</a>
-        <a href="index.php?p=about&article_id=<?= $_GET["article_id"]; ?>&action=edit">EDITIEREN</a>
-    </header>
 
     <main>
-        <a href="index.php?c=red">Red</a>
-        <a href="index.php?c=blue">blue</a>
-
         <?php require validPage(); ?>
     </main>
 
