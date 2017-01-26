@@ -27,7 +27,7 @@ echo '</pre>';
 ?>
 <h2>Hallo</h2>
 
-<form action="" method="post">
+<form action="<?= _BASE_ ?>" method="post">
     <div>
         <select name="contact[title]" id="">
             <option selected disabled>Bitte wählen</option>

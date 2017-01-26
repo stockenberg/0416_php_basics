@@ -1,12 +1,21 @@
 <?php
+session_name("php_test");
+session_start();
+session_regenerate_id();
 
-// PHP STUFF
-// ?page=article_edit&action=insert
+
+
+
+    define("_BASE_", $_SERVER["PHP_SELF"]);
+    define("_URL_", $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"]);
+
 
 
     require "app/config/config.php";
-    $whitelist = ["startseite" => "Startseite", "about" => "Über Mich", "contact" => "Kontakt"];
 
+
+    $whitelist = ["startseite" => "Startseite", "about" => "Über Mich", "contact" => "Kontakt", "articles" => "Artikel"];
+ 
     function validPage(){
         global $whitelist;
         if(isset($_GET["p"])){
@@ -28,7 +37,6 @@
     }
 
 
-
 ?>
 
 <!doctype html>
@@ -41,6 +49,18 @@
     <title><?= $whitelist[$_GET["p"]] ?></title>
 </head>
 <body>
+
+    <header>
+        <nav>
+            <?php foreach (scandir("pages") as $id => $item) :?>
+
+                <?php $page = explode(".", $item)[0]; ?>
+
+                <a href="?p=<?= $page ?>"><?= $page ?></a>
+
+            <?php endforeach; ?>
+        </nav>
+    </header>
 
     <main>
         <?php require validPage(); ?>
