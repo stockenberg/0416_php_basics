@@ -17,10 +17,19 @@ $articles = [
 if (isset($_GET["action"]) && $_GET["action"] === "add_cart") {
     foreach ($articles as $index => $article) {
         if ($article["id"] == $_GET["id"]) {
+
+
+
             $_SESSION["cart"][$article["id"]]["name"] = $article["name"];
             $_SESSION["cart"][$article["id"]]["price"] = $article["price"];
-            $_SESSION["cart"][$article["id"]]["count"] = (array_key_exists($_GET["id"],
-                $_SESSION["cart"])) ? $_SESSION["cart"][$_GET["id"]]["count"] + 1 : 1;
+            $_SESSION["cart"][$article["id"]]["count"] = (array_key_exists($_GET["id"], $_SESSION["cart"])) ? $_SESSION["cart"][$_GET["id"]]["count"] + 1 : 1;
+
+            /* ALTERNATIV ZU Zeile 25
+           if(array_key_exists($_GET["id"], $_SESSION["cart"])){
+               $_SESSION["cart"][$article["id"]]["count"] = $_SESSION["cart"][$_GET["id"]]["count"] + 1;
+           }else{
+               $_SESSION["cart"][$article["id"]]["count"] =  1;
+           }*/
 
             header("Location: ?p=articles&completed");
             exit();
