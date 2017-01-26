@@ -14,14 +14,15 @@ $articles = [
 
 ];
 
-if(isset($_GET["action"]) && $_GET["action"] === "add_cart"){
-    foreach ($articles as $index => $article){
-        if($article["id"] == $_GET["id"]){
+if (isset($_GET["action"]) && $_GET["action"] === "add_cart") {
+    foreach ($articles as $index => $article) {
+        if ($article["id"] == $_GET["id"]) {
             $_SESSION["cart"][$article["id"]]["name"] = $article["name"];
             $_SESSION["cart"][$article["id"]]["price"] = $article["price"];
-            $_SESSION["cart"][$article["id"]]["count"] = (array_key_exists($_GET["id"], $_SESSION["cart"])) ? $_SESSION["cart"][$_GET["id"]]["count"] + 1 : 1;
+            $_SESSION["cart"][$article["id"]]["count"] = (array_key_exists($_GET["id"],
+                $_SESSION["cart"])) ? $_SESSION["cart"][$_GET["id"]]["count"] + 1 : 1;
 
-            header("Location: ?p=articles");
+            header("Location: ?p=articles&completed");
             exit();
         }
     }
@@ -32,14 +33,19 @@ echo '<pre>';
 print_r($_SESSION);
 echo '</pre>';
 
+
 ?>
 
-<?php if(isset($_GET["action"]) && $_GET["action"] === "add_cart") :  ?>
-<div><h2>Artikel erfolgreich im Warenkorb</h2></div>
+
+<?php if (isset($_GET["completed"])) : ?>
+    <div>
+        <h2>Artikel erfolgreich im Warenkorb</h2>
+    </div>
 <?php endif; ?>
 
 <div class="product">
-    <?php foreach ($articles as $index => $article) :  ?>
-        <h2><?= $article["name"] ?></h2><p><?= $article["price"] ?></p><a href="?p=articles&action=add_cart&id=<?= $article["id"] ?>">In den Warenkorb</a>
+    <?php foreach ($articles as $index => $article) : ?>
+        <h2><?= $article["name"] ?></h2><p><?= $article["price"] ?></p><a
+                href="?p=articles&action=add_cart&id=<?= $article["id"] ?>">In den Warenkorb</a>
     <?php endforeach; ?>
 </div>
