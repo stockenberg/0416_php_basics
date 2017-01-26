@@ -14,7 +14,7 @@ session_regenerate_id();
     require "app/config/config.php";
 
 
-    $whitelist = ["startseite" => "Startseite", "about" => "Über Mich", "contact" => "Kontakt", "articles" => "Artikel"];
+    $whitelist = ["startseite" => "Startseite", "about" => "Über Mich", "contact" => "Kontakt", "articles" => "Artikel", "cart" => "Warenkorb"];
  
     function validPage(){
         global $whitelist;
@@ -52,9 +52,9 @@ session_regenerate_id();
 
     <header>
         <nav>
-            <?php foreach (scandir("pages") as $id => $item) :?>
+            <?php foreach (scandir("pages") as $id => $filename) :?>
 
-                <?php $page = explode(".", $item)[0]; ?>
+                <?php $page = explode(".", $filename)[0]; ?>
 
                 <a href="?p=<?= $page ?>"><?= $page ?></a>
 
