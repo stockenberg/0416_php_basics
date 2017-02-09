@@ -6,6 +6,10 @@
  * Date: 01.02.17
  * Time: 18:23
  */
+
+namespace app\classes;
+
+
 class Example
 {
     public $ex_second;

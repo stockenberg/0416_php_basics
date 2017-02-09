@@ -1,8 +1,8 @@
 <?php
 
-require_once "app/classes/App.php";
-$app = new App();
-$app->run();
+require_once "vendor/autoload.php";
+
+$app = new \app\classes\App();
 
 
 ?>
@@ -17,7 +17,7 @@ $app->run();
     <title><?= $app->getRequestValue("p") ?></title>
 </head>
 <body>
-
+    <?= time() - 60 * 24 ?>
     <header>
         <nav>
             <?php foreach (scandir("pages") as $id => $filename) :?>

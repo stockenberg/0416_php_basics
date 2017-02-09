@@ -6,7 +6,8 @@
  * Date: 01.02.17
  * Time: 17:39
  */
-require "ArticleController.php";
+namespace app\classes;
+
 
 class App
 {
@@ -87,3 +88,4 @@ class App
     }
 
 }
+

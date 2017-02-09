@@ -6,6 +6,9 @@
  * Date: 01.02.17
  * Time: 18:47
  */
+namespace app\classes;
+
+
 class Article
 {
 

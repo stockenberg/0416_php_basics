@@ -7,7 +7,7 @@
  * Time: 18:52
  */
 
-require "Article.php";
+namespace app\classes;
 
 class ArticleController
 {
@@ -15,7 +15,7 @@ class ArticleController
     public $articles;
 
     public function createArticles(){
-
+        
         $brotkorb = new Article();
         $brotkorb->setId(1);
         $brotkorb->setName("Brotkorb");

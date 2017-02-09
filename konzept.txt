@@ -1,0 +1,86 @@
+B2B
+
+
+
+// SITEMAP
+
+Frontend
+    Login
+    Startseite
+    Aboutsite
+    Kontaktseite
+    News
+    Mitarbeiter
+    Rechtliches[...]
+Backend
+    Mitarbeiter-Edit
+    News-Edit
+    Tasks
+
+
+// DATENBANKDESIGN
+Siehe Email vom 09.02 - 15:22 Uhr
+kein Betreff von m.stockenberg@sae.edu
+
+// CODE-DESIGN
+
+
+// Beschreibung der Revelanz des Projektes und der Zielgruppe
+
+
+# Benutzerrollen
+    Admin
+        News Edit: Create, Read, Update, Delete
+        Mitarbeiter Edit: Create, Read, Update, Delete
+
+    Taskmanager
+        Tasks - Vollzugriff
+        News Edit: gesperrt nur lesen
+        Mitarbeiter Edit: gesperrt nur lesen
+
+
+#Features
+News Edit
+    - Bilder
+        - Dateiupload
+    - Text
+    - CRUD
+
+Mitarbeiter Edit
+    Sinn und Zweck :
+    Verwaltung der aktuellen Mitarbeitersituation, es können Mitarbeiter hinzugefügt werden, gelöscht werden, Die Daten geändert werden.
+    Mitarbeiter Daten:
+    Name - Berufsbezeichnung - Bild
+
+Tasksystem
+    - Aufgaben hinzufügen
+    - Aufgaben Mitarbeitern zuweisen
+        - Aufgabe wird per Mail verschickt
+        - Aufgabe abhaken per Mail - in Backend auslesbar.
+
+
+Login
+    - Eingabemaske
+        - Benutzername, Passwort
+        - Validiere Login Formular
+        - Prüfe ob der User in der Datenbank steht und ob die Daten passen.
+        - Klappt:
+            - Backend
+        - Klappt nicht:
+            - Loginmaske
+
+
+Kontakt-Seite
+    - Formularfelder: Vorname, Nachname, EMail, Verwendungszweck, Unternehmen, Nachricht
+    - Form Validierung
+        - Mailversand
+
+
+
+
+
+für später
+// Taskssystem
+
+FileHandling
+    - Anlegen von Templates
