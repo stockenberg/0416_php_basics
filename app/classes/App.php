@@ -15,17 +15,13 @@ class App
     public $content;
     private $request;
     private $whitelist = ["startseite" => "Startseite", "about" => "About", "cart" => "Cart", "articles" => "Articles"];
-
-    const ERROR_ON = -1;
-
+    
     public function __construct()
     {
         // Todo : see if you can use this anywhere else
         session_name("php_basics");
         session_start();
         session_regenerate_id();
-
-        self::ERROR_ON;
 
         $this->request = array_merge($_GET, $_POST);
     }
