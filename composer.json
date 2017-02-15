@@ -12,7 +12,6 @@
   "require": {
     "phpmailer/phpmailer": "v5.2.22"
   },
-  // u need to >>composer update  for the changes to take effect
   "autoload": {
     "psr-4": {
       "app\\": "app/"

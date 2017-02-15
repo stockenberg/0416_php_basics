@@ -14,7 +14,7 @@ class App
 
     public $content;
     private $request;
-    private $whitelist = ["startseite" => "Startseite", "about" => "About", "cart" => "Cart", "articles" => "Articles"];
+    private $whitelist = ["startseite" => "Startseite", "about" => "About", "login" => "Login", "register" => "Register"];
     
     public function __construct()
     {
@@ -55,20 +55,31 @@ class App
 
                     break;
 
-                case "cart":
+                case "login":
+
+                    $login = new Login();
+                    $login->validateInput($_POST);
 
                     break;
 
-                case "articles":
+                case "logout":
+                    Login::logout();
+                    break;
 
-                    $this->content = new ArticleController();
-                    $this->content->createArticles();
-                    $this->content->addToCart();
+                case "register":
 
                     break;
 
             }
         }
+    }
+
+    public function checkLoginState() : bool{
+        if(count($_SESSION["active_user"]) > 0){
+            return true;
+        }
+
+        return false;
     }
 
     /**

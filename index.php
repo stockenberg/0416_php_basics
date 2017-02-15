@@ -3,6 +3,7 @@
 require_once "vendor/autoload.php";
 
 $app = new \app\classes\App();
+$app->run();
 
 
 ?>
@@ -26,10 +27,12 @@ $app = new \app\classes\App();
             <?php foreach (scandir("pages") as $id => $filename) :?>
 
                 <?php $page = explode(".", $filename)[0]; ?>
-
-                <li><a href="?p=<?= $page ?>"><?= $page ?></a></li>
+                <?php if($page != "login") :  ?>
+                    <li><a href="?p=<?= $page ?>"><?= $page ?></a></li>
+                <?php endif; ?>
 
             <?php endforeach; ?>
+            <?= ($app->checkLoginState()) ? "<li><a href='{$_SERVER["PHP_SELF"]}?p=logout'>Logout</a></li>" : "<li><a href='{$_SERVER["PHP_SELF"]}?p=login'>Login</a></li>" ?>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
@@ -47,7 +50,7 @@ $app = new \app\classes\App();
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
         <br><br>
-        <h1 class="header center orange-text">Starter Template</h1>
+        <?= ($app->checkLoginState()) ? "<h1 class=\"header center orange-text\">Eingeloggt</h1>" : "<h1 class=\"header center orange-text\">Ausgeloggt</h1>" ?>
         <div class="row center">
             <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
         </div>
