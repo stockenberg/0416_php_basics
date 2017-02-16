@@ -9,20 +9,20 @@
 namespace app\classes;
 
 
+use app\database\LoginSQL;
 use app\interfaces\LoginInterface;
 use app\interfaces\UserInterface;
 
 class Login implements LoginInterface
 {
-    use Database;
 
     private function login(UserInterface $user)
     {
 
         $found = false;
 
-        foreach ($this->getUsersByUsername($user) as $row => $dbuser){
-            if (password_verify($user->getPassword(), $dbuser["user_password"])){
+        foreach (LoginSQL::getUsersByUsername($user) as $row => $dbuser) {
+            if (password_verify($user->getPassword(), $dbuser["user_password"])) {
                 $found = true;
                 $user->setEmail($dbuser["user_email"]);
                 $user->setRole($dbuser["user_role"]);
@@ -32,7 +32,7 @@ class Login implements LoginInterface
             }
         }
 
-        if(!$found){
+        if (!$found) {
             echo "FEHLER";
         }
 
@@ -43,21 +43,22 @@ class Login implements LoginInterface
         $_SESSION["active_user"] = [];
     }
 
-    public function validateInput(array $post){
+    public function validateInput(array $post)
+    {
 
-        if(isset($post["login"]["submit"])){
+        if (isset($post["login"]["submit"])) {
 
             $user = new User();
 
-            if(empty($post["login"]["username"])){
+            if (empty($post["login"]["username"])) {
                 // Add no username notice
-            }else{
+            } else {
                 $user->setUsername($post["login"]["username"]);
             }
 
-            if(empty($post["login"]["password"])){
+            if (empty($post["login"]["password"])) {
                 // add no password notice
-            }else{
+            } else {
                 $user->setPassword($post["login"]["password"]);
             }
 

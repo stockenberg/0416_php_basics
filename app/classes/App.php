@@ -14,8 +14,13 @@ class App
 
     public $content;
     private $request;
-    private $whitelist = ["startseite" => "Startseite", "about" => "About", "login" => "Login", "register" => "Register"];
-    
+    public $whitelist = [
+        "startseite" => "Startseite",
+        "about" => "About",
+        "login" => "Login",
+        "register" => "Register"
+    ];
+
     public function __construct()
     {
         // Todo : see if you can use this anywhere else
@@ -27,7 +32,7 @@ class App
     }
 
 
-    public function getValidPage(string $file_ending, string $default_page = "home") : string
+    public function getValidPage(string $file_ending, string $default_page = "startseite"): string
     {
         if (isset($this->request["p"])) {
             if (array_key_exists($this->request["p"], $this->whitelist)) {
@@ -47,18 +52,10 @@ class App
         if (isset($this->request["p"])) {
             switch ($this->request["p"]) {
 
-                case "startseite":
-
-                    break;
-
-                case "about":
-
-                    break;
-
                 case "login":
 
                     $login = new Login();
-                    $login->validateInput($_POST);
+                    $login->validateInput($this->request);
 
                     break;
 
@@ -74,8 +71,9 @@ class App
         }
     }
 
-    public function checkLoginState() : bool{
-        if(count($_SESSION["active_user"]) > 0){
+    public function checkLoginState(): bool
+    {
+        if (isset($_SESSION["active_user"]) && count($_SESSION["active_user"]) > 0) {
             return true;
         }
 
@@ -83,11 +81,11 @@ class App
     }
 
     /**
-     * @return string
+     * @return string maybe useless
      */
     public function getRequestValue(string $key): string
     {
-        if(isset($this->request[$key])){
+        if (isset($this->request[$key])) {
             return $this->request[$key];
         }
 

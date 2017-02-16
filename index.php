@@ -22,12 +22,11 @@ $app->run();
 </head>
 <body>
 <nav class="teal darken-4" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">PHP Custom CMS</a>
         <ul class="right hide-on-med-and-down">
-            <?php foreach (scandir("pages") as $id => $filename) :?>
+            <?php foreach ($app->whitelist as $param => $page) :?>
 
-                <?php $page = explode(".", $filename)[0]; ?>
-                <?php if($page != "login") :  ?>
+                <?php if($param != "login") :  ?>
                     <li><a href="?p=<?= $page ?>"><?= $page ?></a></li>
                 <?php endif; ?>
 
@@ -36,11 +35,11 @@ $app->run();
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-            <?php foreach (scandir("pages") as $id => $filename) :?>
+            <<?php foreach ($app->whitelist as $param => $page) :?>
 
-                <?php $page = explode(".", $filename)[0]; ?>
-
-                <li><a href="?p=<?= $page ?>"><?= $page ?></a></li>
+                <?php if($param != "login") :  ?>
+                    <li><a href="?p=<?= $page ?>"><?= $page ?></a></li>
+                <?php endif; ?>
 
             <?php endforeach; ?>
         </ul>

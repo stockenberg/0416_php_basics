@@ -23,7 +23,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getRole() : int
+    public function getRole(): int
     {
         return $this->role;
     }
@@ -39,7 +39,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -55,7 +55,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getUsername() : string
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -71,7 +71,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getPassword() : string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -87,7 +87,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getEmail() : string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -99,9 +99,6 @@ class User implements UserInterface
     {
         $this->email = $email;
     }
-
-
-
 
 
 }
