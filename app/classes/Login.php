@@ -13,8 +13,9 @@ use app\database\LoginSQL;
 use app\interfaces\LoginInterface;
 use app\interfaces\UserInterface;
 
-class Login implements LoginInterface
+class Login extends App implements LoginInterface
 {
+
 
     private function login(UserInterface $user)
     {
@@ -33,7 +34,7 @@ class Login implements LoginInterface
         }
 
         if (!$found) {
-            echo "FEHLER";
+            Notice::set("error", "Benutzername oder Passwort ist falsch");
         }
 
     }
@@ -45,25 +46,27 @@ class Login implements LoginInterface
 
     public function validateInput(array $post)
     {
+        $status = array();
 
         if (isset($post["login"]["submit"])) {
 
             $user = new User();
 
             if (empty($post["login"]["username"])) {
-                // Add no username notice
+                $status[] = "bitte nutzernamen!!111";
             } else {
                 $user->setUsername($post["login"]["username"]);
             }
 
             if (empty($post["login"]["password"])) {
-                // add no password notice
+                $status[] = "bitte passwort! !!111";
             } else {
                 $user->setPassword($post["login"]["password"]);
             }
 
-
-            $this->login($user);
+            if(empty($status)){
+                $this->login($user);
+            }
         }
 
 

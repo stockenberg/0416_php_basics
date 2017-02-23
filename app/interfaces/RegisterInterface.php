@@ -12,7 +12,7 @@ namespace app\interfaces;
 interface RegisterInterface
 {
 
-    public function saveRegistration(UserInterface $user) : void;
-    public function restorePassword(UserInterface $user) : void;
+    public function saveRegistration(UserInterface $user);
+    public function restorePassword(UserInterface $user);
 
 }

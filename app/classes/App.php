@@ -9,6 +9,8 @@
 namespace app\classes;
 
 
+use app\database\UserAdminSQL;
+
 class App
 {
 
@@ -18,14 +20,18 @@ class App
         "startseite" => "Startseite",
         "about" => "About",
         "login" => "Login",
-        "register" => "Register"
+        "register" => "Register",
+        "user-admin" => "Benutzerverwaltung"
     ];
+
 
     public function __construct()
     {
         // Todo : see if you can use this anywhere else
-        session_name("php_basics");
-        session_start();
+        if(!isset($_SESSION)){
+            session_name("php_basics");
+            session_start();
+        }
         session_regenerate_id();
 
         $this->request = array_merge($_GET, $_POST);
@@ -64,8 +70,21 @@ class App
                     break;
 
                 case "register":
+                    if(isset($this->request["register"]["submit"])){
+                        $input = new Input();
+                        $user = $input->validateRegister($this->request["register"]);
+                        $reg = new Register();
+                        if($user !== false){
+                            $reg->saveRegistration($user);
+                        }
+                    }
 
                     break;
+
+                case "user-admin":
+                    $this->content["users"] = UserAdminSQL::getAllUsers();
+                    break;
+
 
             }
         }

@@ -18,7 +18,7 @@ $app->run();
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="public/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="public/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 <nav class="teal darken-4" role="navigation">
@@ -27,18 +27,23 @@ $app->run();
             <?php foreach ($app->whitelist as $param => $page) :?>
 
                 <?php if($param != "login") :  ?>
-                    <li><a href="?p=<?= $page ?>"><?= $page ?></a></li>
+                    <li><a href="?p=<?= $param ?>"><?= $page ?></a></li>
                 <?php endif; ?>
 
             <?php endforeach; ?>
-            <?= ($app->checkLoginState()) ? "<li><a href='{$_SERVER["PHP_SELF"]}?p=logout'>Logout</a></li>" : "<li><a href='{$_SERVER["PHP_SELF"]}?p=login'>Login</a></li>" ?>
+            <?= ($app->checkLoginState()) ?
+                "
+                <li><a href='{$_SERVER["PHP_SELF"]}?p=logout'>Logout</a></li>
+                <li><a href='{$_SERVER["PHP_SELF"]}?p=user-admin'>User Verwaltung</a></li>
+                " :
+                "<li><a href='{$_SERVER["PHP_SELF"]}?p=login'>Login</a></li>" ?>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
             <<?php foreach ($app->whitelist as $param => $page) :?>
 
                 <?php if($param != "login") :  ?>
-                    <li><a href="?p=<?= $page ?>"><?= $page ?></a></li>
+                    <li><a href="?p=<?= $param ?>"><?= $page ?></a></li>
                 <?php endif; ?>
 
             <?php endforeach; ?>
@@ -50,6 +55,7 @@ $app->run();
     <div class="container">
         <br><br>
         <?= ($app->checkLoginState()) ? "<h1 class=\"header center orange-text\">Eingeloggt</h1>" : "<h1 class=\"header center orange-text\">Ausgeloggt</h1>" ?>
+        <?= (\app\classes\Notice::get("error") > "") ? "<h4 class='center red-text'>" . \app\classes\Notice::get("error") . "</h4>" : ""?>
         <div class="row center">
             <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
         </div>
