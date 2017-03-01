@@ -28,4 +28,49 @@ class UserAdminSQL
 
     }
 
+    public static function updateUser(User $user)
+    {
+
+        $SQL = "UPDATE users 
+                SET user_username = :username, user_role = :role, user_email = :email 
+                WHERE user_id = :id";
+
+        $arr = [
+            ":username" => $user->getUsername(),
+            ":role" => $user->getRole(),
+            ":email" => $user->getEmail(),
+            ":id" => $user->getId()
+        ];
+
+        try{
+            DB::SET($SQL, $arr);
+        }catch (\Exception $e){
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function getUserById(int $id)
+    {
+        $SQL = "SELECT * FROM users WHERE user_id = :id";
+        $arr = [
+            ":id" => $id
+        ];
+
+        return DB::GETObj($SQL, $arr, "\\app\\classes\\User");
+    }
+
+
+    public static function delete(int $id)
+    {
+        $SQL = "DELETE FROM users WHERE user_id = :id";
+
+        $arr = [
+            ":id" => $id,
+        ];
+
+        DB::SET($SQL, $arr);
+    }
+
 }

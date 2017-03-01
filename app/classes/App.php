@@ -17,18 +17,22 @@ class App
     public $content;
     private $request;
     public $whitelist = [
-        "startseite" => "Startseite",
-        "about" => "About",
-        "login" => "Login",
-        "register" => "Register",
-        "user-admin" => "Benutzerverwaltung"
+        "frontend" => [
+            "startseite" => "Startseite",
+            "about" => "About",
+            "login" => "Login",
+            "register" => "Register",
+        ],
+        "backend" => [
+            "user-admin" => "Benutzerverwaltung"
+        ]
     ];
 
 
     public function __construct()
     {
         // Todo : see if you can use this anywhere else
-        if(!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_name("php_basics");
             session_start();
         }
@@ -41,10 +45,21 @@ class App
     public function getValidPage(string $file_ending, string $default_page = "startseite"): string
     {
         if (isset($this->request["p"])) {
-            if (array_key_exists($this->request["p"], $this->whitelist)) {
-                $page = $this->request["p"];
+            if ($this->checkLoginState()) {
+                if (array_key_exists($this->request["p"],
+                        $this->whitelist["frontend"]) || array_key_exists($this->request["p"],
+                        $this->whitelist["backend"])
+                ) {
+                    $page = $this->request["p"];
+                } else {
+                    $page = $default_page;
+                }
             } else {
-                $page = $default_page;
+                if (array_key_exists($this->request["p"], $this->whitelist["frontend"])) {
+                    $page = $this->request["p"];
+                } else {
+                    $page = $default_page;
+                }
             }
         } else {
             $page = $default_page;
@@ -70,11 +85,11 @@ class App
                     break;
 
                 case "register":
-                    if(isset($this->request["register"]["submit"])){
+                    if (isset($this->request["register"]["submit"])) {
                         $input = new Input();
                         $user = $input->validateRegister($this->request["register"]);
                         $reg = new Register();
-                        if($user !== false){
+                        if ($user !== false) {
                             $reg->saveRegistration($user);
                         }
                     }
@@ -83,6 +98,33 @@ class App
 
                 case "user-admin":
                     $this->content["users"] = UserAdminSQL::getAllUsers();
+
+                    if (isset($this->request["action"])) {
+                        if ($this->request["action"] == "delete") {
+                            UserAdminSQL::delete($this->request["id"]);
+                            header("Location: ?p=user-admin");
+                            exit();
+                        }
+
+                        if ($this->request["action"] == "edit") {
+                            // 2. Update user with id...
+                            $this->content["user_edit"] = UserAdminSQL::getUserById($this->request["id"]);
+
+                            if (isset($this->request["save"])) {
+                                $input = new Input();
+                                $user = $input->validate($this->request["update"]);
+                                $user->setId($this->request["id"]);
+
+                                if (UserAdminSQL::updateUser($user)) {
+                                    header("Location: ?p=user-admin");
+                                    exit();
+                                }
+                            }
+                        }
+
+
+                    }
+
                     break;
 
 

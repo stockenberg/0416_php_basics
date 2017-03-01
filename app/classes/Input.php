@@ -51,6 +51,41 @@ class Input
 
     }
 
+    public function validate(array $post){
+
+        $user = new User();
+
+        foreach ($post as $field => $input){
+
+            if($input === ""){
+                Notice::set($field, "Bitte fülle das Feld: " . $this->fields[$field]);
+            }else{
+                if($field !== "submit"){
+
+                    /** $action will be the function which is called with
+                     * dynamic name, name is set by formField and will be Username,
+                     * Password, etc... which results in setUsername() setPassword() ....
+                     */
+
+                    $action = "set" . ucfirst($field);
+                    $user->$action($input);
+                }
+
+            }
+
+
+        }
+
+        if(empty(Notice::getAll())){
+            Notice::set("success", "Vorgang erfolgreich ausgeführt!");
+            return $user;
+        }
+
+        return false;
+
+
+    }
+
 
 
 }

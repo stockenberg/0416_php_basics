@@ -36,6 +36,17 @@ trait DB
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function GETObj(string $sql, array $execArr = array(), string $classname)
+    {
+        self::$db = self::getDBInstance();
+
+        $stmt = self::$db->prepare($sql);
+        $stmt->execute($execArr);
+
+        return $stmt->fetchObject($classname);
+
+    }
+
 
     public static function SET(string $sql, array $execArr = array())
     {

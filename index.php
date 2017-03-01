@@ -24,7 +24,7 @@ $app->run();
 <nav class="teal darken-4" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">PHP Custom CMS</a>
         <ul class="right hide-on-med-and-down">
-            <?php foreach ($app->whitelist as $param => $page) :?>
+            <?php foreach ($app->whitelist["frontend"] as $param => $page) :?>
 
                 <?php if($param != "login") :  ?>
                     <li><a href="?p=<?= $param ?>"><?= $page ?></a></li>

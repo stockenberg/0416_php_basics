@@ -14,26 +14,29 @@ use app\interfaces\UserInterface;
 class User implements UserInterface
 {
 
-    private $role;
-    private $id;
-    private $username;
-    private $password;
-    private $email;
+    private $user_role;
+    private $user_id;
+    private $user_username;
+    private $user_password;
+    private $user_email;
+
+    // Todo: we need to overthink the meber names or database names cause:::
+    
 
     /**
      * @return mixed
      */
     public function getRole(): int
     {
-        return $this->role;
+        return $this->user_role;
     }
 
     /**
-     * @param mixed $role
+     * @param mixed $user_role
      */
-    public function setRole(int $role)
+    public function setRole(int $user_role)
     {
-        $this->role = $role;
+        $this->user_role = $user_role;
     }
 
     /**
@@ -41,15 +44,15 @@ class User implements UserInterface
      */
     public function getId(): int
     {
-        return $this->id;
+        return $this->user_id;
     }
 
     /**
-     * @param mixed $id
+     * @param mixed $user_id
      */
-    public function setId(int $id)
+    public function setId(int $user_id)
     {
-        $this->id = $id;
+        $this->user_id = $user_id;
     }
 
     /**
@@ -57,15 +60,15 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return $this->username;
+        return $this->user_username;
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $user_username
      */
-    public function setUsername(string $username)
+    public function setUsername(string $user_username)
     {
-        $this->username = $username;
+        $this->user_username = $user_username;
     }
 
     /**
@@ -73,15 +76,15 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
+        return $this->user_password;
     }
 
     /**
-     * @param mixed $password
+     * @param mixed $user_password
      */
-    public function setPassword(string $password)
+    public function setPassword(string $user_password)
     {
-        $this->password = $password;
+        $this->user_password = $user_password;
     }
 
     /**
@@ -89,15 +92,15 @@ class User implements UserInterface
      */
     public function getEmail(): string
     {
-        return $this->email;
+        return $this->user_email;
     }
 
     /**
-     * @param mixed $email
+     * @param mixed $user_email
      */
-    public function setEmail(string $email)
+    public function setEmail(string $user_email)
     {
-        $this->email = $email;
+        $this->user_email = $user_email;
     }
 
 

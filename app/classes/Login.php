@@ -13,7 +13,7 @@ use app\database\LoginSQL;
 use app\interfaces\LoginInterface;
 use app\interfaces\UserInterface;
 
-class Login extends App implements LoginInterface
+class Login implements LoginInterface
 {
 
 

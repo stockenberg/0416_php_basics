@@ -20,6 +20,8 @@ class Register implements RegisterInterface
     public function saveRegistration(UserInterface $user)
     {
 
+        // Todo : check userrole
+
         $SQL = "INSERT INTO users (user_username, user_password, user_email, user_role) VALUES (:user_username, :user_password, :user_email, :user_role)";
 
         $execArr = [
