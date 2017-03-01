@@ -1,57 +1,25 @@
-<?php
-// Beispiel $_POST
-
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
-
-$contact = (isset($_POST["contact"])) ? $_POST["contact"] : "";
-$errors = [];
-$final = [];
-
-if (isset($contact["submit"])) {
-    if (empty($contact["firstname"])) {
-        $errors["firstname"] = "Bitte vorname ausfüllen.";
-    }else{
-        $final["firstname"] = htmlspecialchars(strip_tags($contact["firstname"]));
-    }
-    if(empty($errors)){
-        echo "Mail gesendet!";
-    }
-}
-
-echo '<pre>';
-print_r($final);
-echo '</pre>';
-
-?>
-<h2>Hallo</h2>
-
-<form action="<?= _BASE_ ?>" method="post">
-    <div>
-        <select name="contact[title]" id="">
-            <option selected disabled>Bitte wählen</option>
-            <option value="male">Herr</option>
-            <option value="female">Frau</option>
-        </select>
+<form action="" method="post">
+    <div class="input-field col s12">
+        <input name="contact[firstname]" data-success="right" value="<?= @$_POST["contact"]["firstname"] ?>" type="text" class="validate">
+        <label>Firstname</label>
+        <?= (\app\classes\Notice::get("firstname") > '') ?  "<p class='red-text'>" . \app\classes\Notice::get("firstname") . "</p>" : ""?>
     </div>
-
-    <div>
-        <input type="text" name="contact[firstname]"/>
-        <?= ( isset($errors["firstname"]) ) ? "<p class=\"error\">" . $errors["firstname"] . "</p>" : "" ?>
+    <div class="input-field col s12">
+        <input name="contact[lastname]" data-success="right" value="<?= @$_POST["contact"]["lastname"] ?>" type="text" class="validate">
+        <label>Lastname</label>
+        <?= (\app\classes\Notice::get("lastname") > '') ?  "<p class='red-text'>" . \app\classes\Notice::get("lastname") . "</p>" : ""?>
     </div>
-
-    <div>
-        <p>Raucher ? </p>
-        Ja <input type="radio" name="contact[smoker]" value="1"/>
-        Nein <input type="radio" name="contact[smoker]" value="0"/>
+    <div class="input-field col s12">
+        <input name="contact[email]" data-success="right" value="<?= @$_POST["contact"]["email"] ?>" type="text" class="validate">
+        <label>Email</label>
+        <?= (\app\classes\Notice::get("email") > '') ?  "<p class='red-text'>" . \app\classes\Notice::get("email") . "</p>" : ""?>
     </div>
-
-
-    
-    <div>
-        <textarea name="contact[message]" id="" cols="30" rows="10"></textarea>
+    <div class="input-field col s12">
+        <textarea name="contact[message]" data-success="right" type="text" class="materialize-textarea validate"><?= @$_POST["contact"]["message"] ?></textarea>
+        <label>Message</label>
+        <?= (\app\classes\Notice::get("message") > '') ?  "<p class='red-text'>" . \app\classes\Notice::get("message") . "</p>" : ""?>
     </div>
-
-    <input type="submit" name="contact[submit]" value="Absenden">
+    <input type="submit" value="Senden" name="contact[submit]" class="btn">
 </form>
+
+<br/><br/><br/>

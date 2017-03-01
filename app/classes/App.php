@@ -22,6 +22,7 @@ class App
             "about" => "About",
             "login" => "Login",
             "register" => "Register",
+            "contact" => "Kontakt"
         ],
         "backend" => [
             "user-admin" => "Benutzerverwaltung"
@@ -125,6 +126,13 @@ class App
 
                     }
 
+                    break;
+
+                case "contact":
+                    $input = new Input();
+                    if(isset($this->request["contact"]["submit"])){
+                        $input->validateContact($this->request["contact"]);
+                    }
                     break;
 
 

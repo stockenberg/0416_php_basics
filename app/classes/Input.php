@@ -86,6 +86,49 @@ class Input
 
     }
 
+    public function validateContact(array $post){
+
+        if(empty($post["firstname"])){
+            Notice::set("firstname", "Bitte geben Sie einen Vornamen an");
+        }
+
+        if(empty($post["lastname"])){
+            Notice::set("lastname", "Bitte geben Sie einen Nachnamen an");
+        }
+
+        if(empty($post["email"])){
+            Notice::set("email", "Bitte geben Sie einen EMail an");
+        }
+
+        if(count(Notice::getAll()) < 1){
+            $mail = new \PHPMailer();
+
+            $mail->setFrom('no-reply@custom-cms.com', 'Custom CMS');
+            $mail->addAddress('m.stockenberg@sae.edu');               // Name is optional
+            $mail->addReplyTo($post["email"]);
+
+            $mail->isHTML(true);                                  // Set email format to HTML
+
+            $mail->Subject = 'Neue Email aus dem Kontaktformular';
+            $mail->Body    = "Von: {$post["firstname"]} {$post["lastname"]} 
+                              <br />
+                              Email: {$post["email"]}
+                              <br /><br />
+                              {$post["message"]}
+                              ";
+
+            if(!$mail->send()) {
+                echo 'Message could not be sent.';
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            } else {
+                Notice::set("success", "Nachricht versandt!");
+            }
+
+        }
+
+
+    }
+
 
 
 }
