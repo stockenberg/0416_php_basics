@@ -18,14 +18,16 @@ class App
     private $request;
     public $whitelist = [
         "frontend" => [
-            "startseite" => "Startseite",
+            "home" => "Startseite",
             "about" => "About",
             "login" => "Login",
             "register" => "Register",
-            "contact" => "Kontakt"
+            "contact" => "Kontakt",
+            "news" => "Nachrichten",
         ],
         "backend" => [
-            "user-admin" => "Benutzerverwaltung"
+            "user-admin" => "Benutzerverwaltung",
+            "news-admin" => "News Verwaltung"
         ]
     ];
 
@@ -71,6 +73,8 @@ class App
 
     public function run()
     {
+        // All GET_["p"] parameters exists as classes!
+
         if (isset($this->request["p"])) {
             switch ($this->request["p"]) {
 
@@ -98,34 +102,20 @@ class App
                     break;
 
                 case "user-admin":
-                    $this->content["users"] = UserAdminSQL::getAllUsers();
-
-                    if (isset($this->request["action"])) {
-                        if ($this->request["action"] == "delete") {
-                            UserAdminSQL::delete($this->request["id"]);
-                            header("Location: ?p=user-admin");
-                            exit();
-                        }
-
-                        if ($this->request["action"] == "edit") {
-                            // 2. Update user with id...
-                            $this->content["user_edit"] = UserAdminSQL::getUserById($this->request["id"]);
-
-                            if (isset($this->request["save"])) {
-                                $input = new Input();
-                                $user = $input->validate($this->request["update"]);
-                                $user->setId($this->request["id"]);
-
-                                if (UserAdminSQL::updateUser($user)) {
-                                    header("Location: ?p=user-admin");
-                                    exit();
-                                }
-                            }
-                        }
-
-
+                    try{
+                        (new UserController())->run();
+                    }catch(\Exception $e){
+                        Notice::set("error", $e->getMessage());
                     }
+                    break;
 
+                case "news":
+                case "news-admin":
+                    try{
+                        (new NewsController())->run();
+                    }catch(\Exception $e){
+                        Notice::set("error", $e->getMessage());
+                    }
                     break;
 
                 case "contact":

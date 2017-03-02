@@ -129,6 +129,52 @@ class Input
 
     }
 
+    public function validateNewsInput(array $post) : News{
+        $News = new News();
+
+        if(!empty($post["news_title"])){
+            $News->setNewsTitle($post["news_title"]);
+        }else{
+            Notice::set("news_title", "Kein Titel angegeben!");
+        }
+
+        if(!empty($post["news_text"])){
+            $News->setNewsText($post["news_text"]);
+        }else{
+            Notice::set("news_text", "Kein Text angegeben!");
+        }
+
+        if(count(Notice::getAll()) < 1){
+            if(isset($_FILES)){
+                if($_FILES["news"]["error"]["news_file"] > 0){
+                    Notice::set("error", "FEHLER!!!1111^");
+                }else{
+                    $tmp_name = $_FILES["news"]["tmp_name"]["news_file"];
+                    $real_name = $_FILES["news"]["name"]["news_file"];
+                    $dest = "public/uploads/";
+
+                    // IF permission denied error do the following: chmod 747 uploads/ in terminal
+                    if(move_uploaded_file($tmp_name, $dest . $real_name)){
+                        Notice::set("success", "Bild Upload erfolgreich!");
+                        $News->setNewsImage($real_name);
+
+                    }else{
+                        Notice::set("error", "Fehler bei Bildupload");
+                    }
+
+
+
+                }
+            }
+        }
+
+
+
+        $News->setNewsAuthorId($_SESSION["active_user"]->getId());
+
+        return $News;
+    }
+
 
 
 }

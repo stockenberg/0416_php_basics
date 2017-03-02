@@ -35,6 +35,7 @@ $app->run();
                 "
                 <li><a href='{$_SERVER["PHP_SELF"]}?p=logout'>Logout</a></li>
                 <li><a href='{$_SERVER["PHP_SELF"]}?p=user-admin'>User Verwaltung</a></li>
+                <li><a href='{$_SERVER["PHP_SELF"]}?p=news-admin'>News Verwaltung</a></li>
                 " :
                 "<li><a href='{$_SERVER["PHP_SELF"]}?p=login'>Login</a></li>" ?>
         </ul>
