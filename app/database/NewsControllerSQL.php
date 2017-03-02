@@ -28,12 +28,19 @@ class NewsControllerSQL implements NewsControllerSQLInterface
 
     public static function deleteNews(int $id)
     {
-        // TODO: Implement deleteNews() method.
+        $SQL = "DELETE FROM news WHERE news_id = :id";
+        $execArr = [":id" => $id];
+
+        DB::SET($SQL, $execArr);
     }
 
     public static function getNewsById(int $id)
     {
-        // TODO: Implement getNewsById() method.
+        $SQL = "SELECT * FROM news WHERE news_id = :id";
+
+        $execArr = [":id" => $id];
+
+        return DB::GETObj($SQL, $execArr, "\\app\\classes\\News");
     }
 
     public static function insertNews(News $news)
@@ -53,7 +60,17 @@ class NewsControllerSQL implements NewsControllerSQLInterface
 
     public static function updateNews(News $news)
     {
-        // TODO: Implement updateNews() method.
+        $SQL = "UPDATE news SET news_author_id = :news_author_id, news_title = :news_title, news_text = :news_text, news_image = :news_image WHERE news_id = :news_id";
+
+        $execArr = [
+            ":news_author_id" => $news->getNewsAuthorId(),
+            ":news_text" => $news->getNewsText(),
+            ":news_title" => $news->getNewsTitle(),
+            ":news_image" => $news->getNewsImage(),
+            ":news_id" => $news->getNewsId()
+        ];
+
+        DB::SET($SQL, $execArr);
     }
 
 

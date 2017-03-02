@@ -6,7 +6,7 @@
         /**
          * @var \app\classes\News $newsObj
          */
-        foreach (\app\classes\NewsController::getContent() as $key => $newsObj) : ?>
+        foreach (\app\classes\NewsController::getContent()["all"] as $key => $newsObj) : ?>
         <div class="col s12 m4">
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">

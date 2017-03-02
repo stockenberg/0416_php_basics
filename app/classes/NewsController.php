@@ -25,11 +25,20 @@ class NewsController extends Controller
             switch ($this->request["action"]){
 
                 case "edit":
-
+                    self::$content["edit"] = NewsControllerSQL::getNewsById($this->request["id"]);
+                    $input = new Input();
+                    if(isset($this->request["news"])){
+                        $newsObj = $input->validateNewsInput($this->request["news"]);
+                        NewsControllerSQL::updateNews($newsObj);
+                        header("Location: ?p=news-admin");
+                        exit();
+                    }
                     break;
 
                 case "delete":
-
+                    NewsControllerSQL::deleteNews($this->request["id"]);
+                    header("Location: ?p=news-admin");
+                    exit();
                     break;
 
                 case "insert":
@@ -46,7 +55,7 @@ class NewsController extends Controller
             }
         }
 
-        self::$content = NewsControllerSQL::getAllNews();
+        self::$content["all"] = NewsControllerSQL::getAllNews();
     }
 
 

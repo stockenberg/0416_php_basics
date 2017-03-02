@@ -1,3 +1,4 @@
+
 <div class="row">
 
     <?php if(!empty(\app\classes\NewsController::getContent())) : ?>
@@ -6,7 +7,7 @@
         /**
          * @var \app\classes\News $newsObj
          */
-        foreach (\app\classes\NewsController::getContent() as $key => $newsObj) : ?>
+        foreach (\app\classes\NewsController::getContent()["all"] as $key => $newsObj) : ?>
             <div class="col s12 m4">
                 <div class="card sticky-action"">
                     <div class="card-image waves-effect waves-block waves-light">
@@ -31,29 +32,27 @@
 
 </div>
 <h2>News Edit & Save</h2>
-<pre>
-    <?php print_r(\app\classes\Notice::getAll()); ?>
-</pre>
+
 
     <!-- TODO : LEARN! REMEMBER! -->
-    <form action="?p=news-admin&action=<?= (!isset($_GET["action"])) ? "insert" : "edit" ?>&id=#edit" method="post" enctype="multipart/form-data" id="edit">
+    <form action="?p=news-admin&action=<?= (!isset($_GET["action"])) ? "insert" : "edit&id=" . $_GET["id"] ?>#edit" method="post" enctype="multipart/form-data" id="edit">
 
         <div class="row">
             <div class="input-field s12">
-                <input id="news_title" type="text" name="news[news_title]" class="validate">
+                <input id="news_title" type="text" name="news[news_title]" value="<?= (isset(\app\classes\NewsController::getContent()["edit"])) ? \app\classes\NewsController::getContent()["edit"]->getNewsTitle() : "" ?>" class="validate">
                 <label for="news_title">Titel</label>
             </div>
             <div class="input-field s12">
-                <textarea id="news_text" type="text" name="news[news_text]" class="materialize-textarea validate"></textarea>
+                <textarea id="news_text" type="text" name="news[news_text]"  class="materialize-textarea validate"><?= (isset(\app\classes\NewsController::getContent()["edit"])) ? \app\classes\NewsController::getContent()["edit"]->getNewsText() : "" ?></textarea>
                 <label for="news_text">News</label>
             </div>
             <div class="file-field input-field">
                 <div class="btn">
                     <span>Neues Bild</span>
-                    <input type="file" name="news[news_file]">
+                    <input type="file" value="" name="news[news_file]">
                 </div>
                 <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
+                    <input class="file-path validate" value="<?= (isset(\app\classes\NewsController::getContent()["edit"])) ? \app\classes\NewsController::getContent()["edit"]->getNewsImage() : "" ?>" name="news[old_news_file]" type="text">
                 </div>
             </div>
             <div class="row center">

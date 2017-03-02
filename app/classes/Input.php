@@ -144,10 +144,20 @@ class Input
             Notice::set("news_text", "Kein Text angegeben!");
         }
 
+        if(!empty($post["old_news_file"])){
+            $News->setNewsImage($post["old_news_file"]);
+        }
+
+        if(isset($_GET["id"])){
+            $News->setNewsId($_GET["id"]);
+        }
+
         if(count(Notice::getAll()) < 1){
             if(isset($_FILES)){
                 if($_FILES["news"]["error"]["news_file"] > 0){
-                    Notice::set("error", "FEHLER!!!1111^");
+                    if($News->getNewsImage() == ""){
+                        Notice::set("error", "FEHLER!!!1111^");
+                    }
                 }else{
                     $tmp_name = $_FILES["news"]["tmp_name"]["news_file"];
                     $real_name = $_FILES["news"]["name"]["news_file"];
