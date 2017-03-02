@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 16. Feb 2017 um 15:53
+-- Erstellungszeit: 02. Mrz 2017 um 19:32
 -- Server-Version: 5.7.17-0ubuntu0.16.04.1
 -- PHP-Version: 7.0.13-0ubuntu0.16.04.1
 
@@ -23,43 +23,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `users`
+-- Tabellenstruktur für Tabelle `news`
 --
 
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
-  `user_username` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_password` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_email` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_role` int(11) NOT NULL
+CREATE TABLE `news` (
+  `news_id` int(11) NOT NULL,
+  `news_author_id` int(11) NOT NULL,
+  `news_title` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `news_text` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `news_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `news_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Daten für Tabelle `users`
+-- Daten für Tabelle `news`
 --
 
-INSERT INTO `users` (`user_id`, `user_username`, `user_password`, `user_email`, `user_role`) VALUES
-  (1, 'admin', '$2y$12$Byi9V3r9KM0NwqBBgl2GJujARTUeSv.sjX2pfCgRzXylktxn2KqCO', 'admin@test.de', 1);
+INSERT INTO `news` (`news_id`, `news_author_id`, `news_title`, `news_text`, `news_image`, `news_created`) VALUES
+  (5, 1, 'Fake News die Dritte ', 'Ich bin finaler Anwender und will posten!!!!', 'IMG_360842.png', '2017-03-02 18:13:33'),
+  (7, 1, 'news test', 'jasdjasdjasd', 'ubuntu_bubbles_linux_93773_1920x1080.jpg', '2017-03-02 18:15:03'),
+  (10, 1, 'Final Countdown', 'DÃ¼dÃ¼dÃ¼dÃ¼ ', 'images.png', '2017-03-02 18:21:46');
 
 --
 -- Indizes der exportierten Tabellen
 --
 
 --
--- Indizes für die Tabelle `users`
+-- Indizes für die Tabelle `news`
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`news_id`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT für Tabelle `users`
+-- AUTO_INCREMENT für Tabelle `news`
 --
-ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `news`
+  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
