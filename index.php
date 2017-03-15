@@ -1,5 +1,6 @@
 <?php
 
+require_once "app/config/config.php";
 require_once "vendor/autoload.php";
 
 $app = new \app\classes\App();
@@ -24,26 +25,39 @@ $app->run();
 <nav class="teal darken-4" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">PHP Custom CMS</a>
         <ul class="right hide-on-med-and-down">
-            <?php foreach ($app->whitelist["frontend"] as $param => $page) :?>
+            <?php foreach ($app->whitelist["frontend"] as $param => $page) : ?>
 
-                <?php if($param != "login") :  ?>
+                <?php if ($param != "login") : ?>
                     <li><a href="?p=<?= $param ?>"><?= $page ?></a></li>
                 <?php endif; ?>
 
             <?php endforeach; ?>
-            <?= ($app->checkLoginState()) ?
-                "
-                <li><a href='{$_SERVER["PHP_SELF"]}?p=logout'>Logout</a></li>
-                <li><a href='{$_SERVER["PHP_SELF"]}?p=user-admin'>User Verwaltung</a></li>
-                <li><a href='{$_SERVER["PHP_SELF"]}?p=news-admin'>News Verwaltung</a></li>
-                " :
-                "<li><a href='{$_SERVER["PHP_SELF"]}?p=login'>Login</a></li>" ?>
+
+            <?php
+                // If user is ADMIN
+                if ($app->checkLoginState() && $_SESSION["active_user"]->getRole() == __ADMIN__):
+                    echo "
+                        <li><a href='{$_SERVER["PHP_SELF"]}?p=user-admin'>User Verwaltung</a></li>
+                        <li><a href='{$_SERVER["PHP_SELF"]}?p=news-admin'>News Verwaltung</a></li>";
+                endif;
+
+                // IF user is logged in
+                if($app->checkLoginState()) :
+                    echo "
+                        <li><a href='{$_SERVER["PHP_SELF"]}?p=tasks'>Tasks</a></li>
+                        <li><a href='{$_SERVER["PHP_SELF"]}?p=logout'>Logout</a></li>";
+
+                // Not logged in
+                else :
+                    echo "<li><a href='{$_SERVER["PHP_SELF"]}?p=login'>Login</a></li>";
+                endif;
+            ?>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-            <<?php foreach ($app->whitelist as $param => $page) :?>
+            <<?php foreach ($app->whitelist as $param => $page) : ?>
 
-                <?php if($param != "login") :  ?>
+                <?php if ($param != "login") : ?>
                     <li><a href="?p=<?= $param ?>"><?= $page ?></a></li>
                 <?php endif; ?>
 
@@ -56,12 +70,13 @@ $app->run();
     <div class="container">
         <br><br>
         <?= ($app->checkLoginState()) ? "<h1 class=\"header center orange-text\">Eingeloggt</h1>" : "<h1 class=\"header center orange-text\">Ausgeloggt</h1>" ?>
-        <?= (\app\classes\Notice::get("error") > "") ? "<h4 class='center red-text'>" . \app\classes\Notice::get("error") . "</h4>" : ""?>
+        <?= (\app\classes\Notice::get("error") > "") ? "<h4 class='center red-text'>" . \app\classes\Notice::get("error") . "</h4>" : "" ?>
         <div class="row center">
             <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
         </div>
         <div class="row center">
-            <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
+            <a href="http://materializecss.com/getting-started.html" id="download-button"
+               class="btn-large waves-effect waves-light orange">Get Started</a>
         </div>
         <br><br>
 
@@ -77,7 +92,9 @@ $app->run();
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">Company Bio</h5>
-                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's
+                    our full time job. Any amount would help support and continue development on this project and is
+                    greatly appreciated.</p>
 
 
             </div>

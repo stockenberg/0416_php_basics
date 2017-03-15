@@ -16,6 +16,8 @@ use app\traits\DB;
 class NewsControllerSQL implements NewsControllerSQLInterface
 {
 
+    use DB;
+
     /**
      * @return array
      */
@@ -60,7 +62,9 @@ class NewsControllerSQL implements NewsControllerSQLInterface
 
     public static function updateNews(News $news)
     {
-        $SQL = "UPDATE news SET news_author_id = :news_author_id, news_title = :news_title, news_text = :news_text, news_image = :news_image WHERE news_id = :news_id";
+        $SQL = "UPDATE news 
+                SET news_author_id = :news_author_id, news_title = :news_title, news_text = :news_text, news_image = :news_image 
+                WHERE news_id = :news_id";
 
         $execArr = [
             ":news_author_id" => $news->getNewsAuthorId(),

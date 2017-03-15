@@ -8,3 +8,10 @@
 
 
 define("DB_USER", "admin");
+
+define("__ADMIN__", 1);
+define("__EDITOR__", 2);
+define("__EMPLOYEE__", 3);
+define("__ANYWHO__", 4);
+
+

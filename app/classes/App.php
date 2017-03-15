@@ -23,11 +23,12 @@ class App
             "login" => "Login",
             "register" => "Register",
             "contact" => "Kontakt",
-            "news" => "Nachrichten",
+            "news" => "Nachrichten"
         ],
         "backend" => [
             "user-admin" => "Benutzerverwaltung",
-            "news-admin" => "News Verwaltung"
+            "news-admin" => "News Verwaltung",
+            "tasks" => "Aufgaben"
         ]
     ];
 
@@ -78,6 +79,10 @@ class App
         if (isset($this->request["p"])) {
             switch ($this->request["p"]) {
 
+                case "tasks":
+
+                    break;
+
                 case "login":
 
                     $login = new Login();
@@ -102,25 +107,36 @@ class App
                     break;
 
                 case "user-admin":
-                    try{
-                        (new UserController())->run();
-                    }catch(\Exception $e){
-                        Notice::set("error", $e->getMessage());
+
+                    if ($_SESSION["active_user"]->getRole() == __ADMIN__) {
+                        try {
+                             (new UserController())->run();
+                        } catch (\Exception $e) {
+                            Notice::set("error", $e->getMessage());
+                        }
+                    } else {
+                        header("Location: ?p=home");
+                        exit();
                     }
                     break;
 
                 case "news":
                 case "news-admin":
-                    try{
-                        (new NewsController())->run();
-                    }catch(\Exception $e){
-                        Notice::set("error", $e->getMessage());
+                    if ($_SESSION["active_user"]->getRole() == __ADMIN__) {
+                        try {
+                            (new NewsController())->run();
+                        } catch (\Exception $e) {
+                            Notice::set("error", $e->getMessage());
+                        }
+                    } else {
+                        header("Location: ?p=home");
+                        exit();
                     }
                     break;
 
                 case "contact":
                     $input = new Input();
-                    if(isset($this->request["contact"]["submit"])){
+                    if (isset($this->request["contact"]["submit"])) {
                         $input->validateContact($this->request["contact"]);
                     }
                     break;
