@@ -28,7 +28,8 @@ class App
         "backend" => [
             "user-admin" => "Benutzerverwaltung",
             "news-admin" => "News Verwaltung",
-            "tasks" => "Aufgaben"
+            "tasks" => "Aufgaben",
+            "new_task" => "Neue Aufgabe"
         ]
     ];
 
@@ -43,6 +44,7 @@ class App
         session_regenerate_id();
 
         $this->request = array_merge($_GET, $_POST);
+
     }
 
 
@@ -79,7 +81,10 @@ class App
         if (isset($this->request["p"])) {
             switch ($this->request["p"]) {
 
+                case "new_task":
                 case "tasks":
+                    $taskController = new TasksController();
+                    $taskController->run();
 
                     break;
 
@@ -140,7 +145,6 @@ class App
                         $input->validateContact($this->request["contact"]);
                     }
                     break;
-
 
             }
         }

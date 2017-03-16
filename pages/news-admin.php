@@ -29,8 +29,8 @@
         <?php endforeach;
 
     endif; ?>
-
 </div>
+
 <h2>News Edit & Save</h2>
 
 

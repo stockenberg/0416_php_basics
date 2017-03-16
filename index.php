@@ -1,6 +1,6 @@
 <?php
 
-require_once "app/config/config.php";
+    require_once "app/config/config.php";
 require_once "vendor/autoload.php";
 
 $app = new \app\classes\App();
@@ -33,7 +33,11 @@ $app->run();
 
             <?php endforeach; ?>
 
-            <?php
+
+            <ul id="dropdown1" class="dropdown-content">
+
+
+                <?php
                 // If user is ADMIN
                 if ($app->checkLoginState() && $_SESSION["active_user"]->getRole() == __ADMIN__):
                     echo "
@@ -42,7 +46,7 @@ $app->run();
                 endif;
 
                 // IF user is logged in
-                if($app->checkLoginState()) :
+                if ($app->checkLoginState()) :
                     echo "
                         <li><a href='{$_SERVER["PHP_SELF"]}?p=tasks'>Tasks</a></li>
                         <li><a href='{$_SERVER["PHP_SELF"]}?p=logout'>Logout</a></li>";
@@ -51,7 +55,11 @@ $app->run();
                 else :
                     echo "<li><a href='{$_SERVER["PHP_SELF"]}?p=login'>Login</a></li>";
                 endif;
-            ?>
+                ?>
+            </ul><!-- Dropdown Trigger -->
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Admin Features<i
+                            class="material-icons right">arrow_drop_down</i></a></li>
+
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
@@ -129,6 +137,6 @@ $app->run();
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="public/materialize/js/materialize.js"></script>
-
+<script src="public/js/script.js"></script>
 </body>
 </html>
