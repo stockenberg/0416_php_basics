@@ -1,12 +1,12 @@
 <div class="row">
 
     <?php
-    if(!empty(\app\classes\NewsController::getContent())) :
+    if(!empty(\app\controller\NewsController::getContent())) :
 
         /**
-         * @var \app\classes\News $newsObj
+         * @var \app\objects\News $newsObj
          */
-        foreach (\app\classes\NewsController::getContent()["all"] as $key => $newsObj) : ?>
+        foreach (\app\controller\NewsController::getContent()["all"] as $key => $newsObj) : ?>
         <div class="col s12 m4">
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">

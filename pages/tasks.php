@@ -1,7 +1,4 @@
 
-<pre>
-    <?php print_r(\app\classes\TasksController::getTaskObjectList()); ?>
-</pre>
 <a href="?p=new_task" class="btn"> + Neuer Task</a>
 <ul class="collection with-header">
     <?php require "parts/task_item.php"?>

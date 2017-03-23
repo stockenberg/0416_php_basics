@@ -6,7 +6,7 @@
  * Time: 16:26
  */
 
-namespace app\classes;
+namespace app\objects;
 
 
 use app\interfaces\UserInterface;

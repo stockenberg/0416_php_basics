@@ -6,12 +6,12 @@
  * Time: 17:32
  */
 
-namespace app\classes;
+namespace app\objects;
 
 
 class Tasks
 {
- // 	task_id	task_description	task_title	task_deadline	task_done	task_created	task_sent
+    // task_id	task_description	task_title	task_deadline	task_done	task_created	task_sent
     private $task_id;
     //private $user_id;
     private $task_description;
@@ -38,8 +38,6 @@ class Tasks
     {
         $this->user_name = $user_name;
     }
-
-
 
     /**
      * @return mixed
@@ -173,3 +171,5 @@ class Tasks
 
 
 }
+
+$task = new Tasks();

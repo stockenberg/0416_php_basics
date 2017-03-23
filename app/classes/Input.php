@@ -9,6 +9,9 @@
 namespace app\classes;
 
 
+use app\objects\News;
+use app\objects\User;
+
 class Input
 {
 

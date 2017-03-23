@@ -6,7 +6,7 @@
  * Time: 16:13
  */
 
-namespace app\classes;
+namespace app\objects;
 
 
 class News

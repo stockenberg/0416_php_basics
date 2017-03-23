@@ -9,7 +9,7 @@
 namespace app\interfaces;
 
 
-use app\classes\News;
+use app\objects\News;
 
 interface NewsControllerSQLInterface
 {

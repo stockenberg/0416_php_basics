@@ -3,6 +3,8 @@
     require_once "app/config/config.php";
 require_once "vendor/autoload.php";
 
+error_reporting(0);
+
 $app = new \app\classes\App();
 $app->run();
 

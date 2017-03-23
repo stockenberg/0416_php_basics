@@ -6,9 +6,10 @@
  * Time: 16:30
  */
 
-namespace app\classes;
+namespace app\controller;
 
 
+use app\classes\Input;
 use app\database\NewsControllerSQL;
 
 class NewsController extends Controller
@@ -52,10 +53,31 @@ class NewsController extends Controller
                     }
                     break;
 
+                case "deleteFile":
+                    if(isset($_GET["filename"])){
+                        unlink("public/uploads/" . $_GET["filename"]);
+                        header("Location: ?p=news-admin");
+                        exit();
+                    }
+                    break;
+
             }
         }
 
         self::$content["all"] = NewsControllerSQL::getAllNews();
+    }
+
+
+    public function getUploadedImages()
+    {
+        $folder = scandir("public/uploads");
+        $res = [];
+        foreach ($folder as $index => $filename){
+            if(strlen($filename) > 2){
+                $res[] = $filename;
+            }
+        }
+        return $res;
     }
 
 

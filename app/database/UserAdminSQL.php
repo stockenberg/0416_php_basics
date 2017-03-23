@@ -9,7 +9,7 @@
 namespace app\database;
 
 
-use app\classes\User;
+use app\objects\User;
 use app\traits\DB;
 
 class UserAdminSQL
@@ -58,7 +58,7 @@ class UserAdminSQL
             ":id" => $id
         ];
 
-        return DB::GETObj($SQL, $arr, "\\app\\classes\\User");
+        return DB::GETObj($SQL, $arr, "app\\objects\\User");
     }
 
 

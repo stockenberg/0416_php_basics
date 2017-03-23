@@ -9,7 +9,9 @@
 namespace app\classes;
 
 
-use app\database\UserAdminSQL;
+use app\controller\NewsController;
+use app\controller\TasksController;
+use app\controller\UserController;
 
 class App
 {
@@ -85,7 +87,7 @@ class App
                 case "tasks":
                     $taskController = new TasksController();
                     $taskController->run();
-
+                    $this->content = $taskController->getTaskById();
                     break;
 
                 case "login":
@@ -112,8 +114,7 @@ class App
                     break;
 
                 case "user-admin":
-
-                    if ($_SESSION["active_user"]->getRole() == __ADMIN__) {
+                    if (isset($_SESSION["active_user"]) && $_SESSION["active_user"]->getRole() == __ADMIN__) {
                         try {
                              (new UserController())->run();
                         } catch (\Exception $e) {
@@ -127,9 +128,12 @@ class App
 
                 case "news":
                 case "news-admin":
-                    if ($_SESSION["active_user"]->getRole() == __ADMIN__) {
+                    if (isset($_SESSION["active_user"]) && $_SESSION["active_user"]->getRole() == __ADMIN__) {
                         try {
-                            (new NewsController())->run();
+                            $news = new NewsController();
+                            $news->run();
+
+                            $this->content = $news->getUploadedImages();
                         } catch (\Exception $e) {
                             Notice::set("error", $e->getMessage());
                         }

@@ -6,9 +6,10 @@
  * Time: 15:45
  */
 
-namespace app\classes;
+namespace app\controller;
 
 
+use app\classes\Input;
 use app\database\UserAdminSQL;
 
 class UserController extends Controller
@@ -26,7 +27,6 @@ class UserController extends Controller
                 case "edit":
                     self::$content["user_edit"] = UserAdminSQL::getUserById($this->request["id"]);
                     if (isset($this->request["save"])) {
-
                         $user = (new Input())->validate($this->request["update"]);
                         $user->setId($this->request["id"]);
 

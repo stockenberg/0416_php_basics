@@ -9,7 +9,7 @@
 namespace app\database;
 
 
-use app\classes\News;
+use app\objects\News;
 use app\interfaces\NewsControllerSQLInterface;
 use app\traits\DB;
 
@@ -25,7 +25,7 @@ class NewsControllerSQL implements NewsControllerSQLInterface
     {
         $SQL = "SELECT * FROM news ORDER BY news_created DESC ";
 
-        return DB::GETObjArr($SQL, array(), "\\app\\classes\\News");
+        return DB::GETObjArr($SQL, array(), "\\app\\objects\\News");
     }
 
     public static function deleteNews(int $id)
@@ -42,7 +42,7 @@ class NewsControllerSQL implements NewsControllerSQLInterface
 
         $execArr = [":id" => $id];
 
-        return DB::GETObj($SQL, $execArr, "\\app\\classes\\News");
+        return DB::GETObj($SQL, $execArr, "\\app\\objects\\News");
     }
 
     public static function insertNews(News $news)

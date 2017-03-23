@@ -14,4 +14,6 @@ define("__EDITOR__", 2);
 define("__EMPLOYEE__", 3);
 define("__ANYWHO__", 4);
 
+define("__UPLOADDIR__", "public/uploads/");
+
 

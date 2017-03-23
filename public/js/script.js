@@ -25,11 +25,25 @@ $(document).ready(function() {
         firstDay: 1
     });
 
-    $(".collection-item i").click(function () {
+    $(".collection-item i.show").click(function () {
         $(this).parent().parent().next().slideToggle(500);
     });
 
     $(".dropdown-button").dropdown();
 
+    $(".delete").click(function (e) {
+        var confirm = window.confirm("Wollen sie das wirklich löschen ? ");
+        if(!confirm){
+            e.preventDefault();
+        }
+    });
+
+    $(".toggleFiles").click(function (e){
+        e.preventDefault();
+        $(".files").slideToggle();
+    });
+
 });
+
+
 

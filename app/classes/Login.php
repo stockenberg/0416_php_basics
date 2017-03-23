@@ -12,6 +12,7 @@ namespace app\classes;
 use app\database\LoginSQL;
 use app\interfaces\LoginInterface;
 use app\interfaces\UserInterface;
+use app\objects\User;
 
 class Login implements LoginInterface
 {
@@ -51,6 +52,7 @@ class Login implements LoginInterface
         if (isset($post["login"]["submit"])) {
 
             $user = new User();
+
 
             if (empty($post["login"]["username"])) {
                 $status[] = "bitte nutzernamen!!111";

@@ -6,7 +6,7 @@
  * Time: 15:54
  */
 
-namespace app\classes;
+namespace app\controller;
 
 
 abstract class Controller

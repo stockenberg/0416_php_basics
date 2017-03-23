@@ -6,9 +6,11 @@
  * Time: 17:28
  */
 
-namespace app\classes;
+namespace app\controller;
 
+use app\classes\Notice;
 use app\database\TasksControllerSQL;
+use app\objects\Tasks;
 use app\traits\DB;
 
 class TasksController extends Controller
@@ -16,9 +18,19 @@ class TasksController extends Controller
     private $unanssignedTasks;
     private $anssignedTasks;
     private $request;
+    /**
+     * @var TasksControllerSQL $taskControllerSQL
+     */
+    private $taskControllerSQL;
+    /**
+     * @var Tasks $taskById
+     */
+    private $taskById;
 
     public function run()
     {
+        $this->taskControllerSQL = new TasksControllerSQL();
+
         $this->getTasks();
         $this->request = array_merge($_GET, $_POST);
 
@@ -26,7 +38,10 @@ class TasksController extends Controller
             switch ($this->request["action"]) {
 
                 case "edit":
-
+                    $this->taskById = $this->taskControllerSQL->getTaskByID($this->request["taskId"]);
+                    echo '<pre>';
+                    print_r($this->taskById);
+                    echo '</pre>';
                     break;
 
                 case "delete":
@@ -45,6 +60,16 @@ class TasksController extends Controller
         }
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTaskById()
+    {
+        return $this->taskById;
+    }
+
+
+
     public function runInsert()
     {
         if (isset($_GET['action']) && $_GET['action'] == 'insert') {
@@ -55,10 +80,10 @@ class TasksController extends Controller
 
     public function getTasks()
     {
-        $taskControllerSQL = new TasksControllerSQL();
+
         //$taskControllerSQL->getAssignedTasks();
-        $this->unanssignedTasks = $taskControllerSQL->getUnassignedTasks();
-        $this->assignedTasks = $taskControllerSQL->getAssignedTasks();
+        $this->unanssignedTasks = $this->taskControllerSQL->getUnassignedTasks();
+        $this->assignedTasks = $this->taskControllerSQL->getAssignedTasks();
 
 
         /*
@@ -73,6 +98,9 @@ class TasksController extends Controller
     public static function getTaskObjectList()
     {
         $result = array();
+        $result['assigned'] = array();
+        $result['unassigned'] = array();
+
         $taskControllerSQL = new TasksControllerSQL();
 
         $unassigned = $taskControllerSQL->getUnassignedTasks();
@@ -105,9 +133,7 @@ class TasksController extends Controller
     // create Task
     public function createTask($post)
     {
-        echo '<pre>';
-        print_r($post);
-        echo '</pre>';
+
         if (isset($post["submit"])) {
             $task = new Tasks();
 
